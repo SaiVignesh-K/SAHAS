@@ -1,56 +1,137 @@
-/* Arena.css */
+/* Apply box-sizing to all elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
 
 /* Default Light Theme */
 .arena-container.light {
     background-color: #ffffff;
     color: #000000;
-  }
-  
-  .arena-container.light .toolbar {
+}
+
+.arena-container.light .toolbar {
     background-color: #f1f1f1;
-  }
-  
-  .arena-container.light .output-box {
-    background-color: #f8f8f8;
+}
+
+.arena-container.light .output-box {
+    background-color: #f0f0f0; /* Same color as input-box */
     color: #000000;
-  }
-  
-  /* Dark Theme */
-  .arena-container.dark {
+}
+
+.arena-container.light .input-box {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
+.arena-container.light .toolbar button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #ccc;
+}
+
+.arena-container.light .toolbar button:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dark Theme */
+.arena-container.dark {
     background-color: #2e2e2e;
     color: #ffffff;
-  }
-  
-  .arena-container.dark .toolbar {
+}
+
+.arena-container.dark .toolbar {
     background-color: #4e4e4e;
-  }
-  
-  .arena-container.dark .output-box {
+}
+
+.arena-container.dark .output-box {
     background-color: #3a3a3a;
     color: #ffffff;
-  }
-  
-  /* General Styles */
-  .arena-container {
+}
+
+.arena-container.dark .input-box {
+    background-color: #444444;
+    color: #ffffff;
+}
+
+.arena-container.dark .toolbar button {
+    background-color: #4e4e4e;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.arena-container.dark .toolbar select {
+    background-color: #4e4e4e;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.arena-container.dark .toolbar p {
+    background-color: #4e4e4e;
+    color: #ffffff;
+    border: 1px solid #555555;
+}
+
+.arena-container.dark .toolbar button:hover {
+    background-color: #5e5e5e;
+}
+
+/* General Styles */
+.arena-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    padding: 10px;
-  }
-  
-  .toolbar {
+    padding: 0;
+    margin: 0;
+}
+
+.toolbar {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 5px 10px;
     border-bottom: 1px solid #ccc;
-  }
-  
-  .output-box {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
+}
+
+.editor-container {
+    flex-grow: 1; /* Ensures the editor takes up all remaining space */
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.output-input-container {
+    display: flex;
+    flex-shrink: 0; /* Prevents shrinking of this container */
     height: 20vh;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-top: none; /* Removes the top border to connect it directly with the editor */
+    resize: vertical; /* Allows vertical resizing */
+    overflow: hidden; /* Prevents scrollbars from appearing */
+}
+
+.output-box {
+    flex: 0 0 65%;
+    padding: 10px;
     overflow-y: auto;
     white-space: pre-wrap;
-  }
-  
+    border-right: 1px solid #ccc; /* Adds a divider between output and input */
+    background-color: #f0f0f0; /* Ensure consistency with input-box */
+}
+
+.input-box {
+    flex: 0 0 35%;
+    padding: 10px;
+}
+
+.input-box textarea {
+    width: 100%;
+    height: 100%;
+    resize: none;
+    border: none;
+    background-color: inherit;
+    color: inherit; /* Ensures text color matches theme */
+}

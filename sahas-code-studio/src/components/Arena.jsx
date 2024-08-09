@@ -7,8 +7,8 @@ const Arena = () => {
   const [theme, setTheme] = useState('light'); // Options: 'light' or 'dark'
   const [language, setLanguage] = useState('javascript'); // Default language
   const [output, setOutput] = useState(''); // For displaying the output
+  const [customInput, setCustomInput] = useState(''); // For custom input
   const [error, setError] = useState(null); // For capturing errors
-
   const handleEditorChange = (value) => {
     setCode(value);
   };
@@ -47,21 +47,38 @@ const Arena = () => {
           <option value="java">Java</option>
           {/* Add more languages as needed */}
         </select>
+        <p>SAHAS_CODE_PLAYGROUND</p>
+        <div>
         <button onClick={runTestCase}>Run Code</button>
         <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
           Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
         </button>
+        </div>
       </div>
+
       {error && <div className="error-message">{error}</div>}
-      <Editor
-        height="50vh"
-        language={language}
-        theme={theme === 'light' ? 'light' : 'vs-dark'}  // Monaco Editor's themes: 'light' or 'vs-dark'
-        value={code}
-        onChange={handleEditorChange}
-      />
-      <div className="output-box">
-        <pre>{output}</pre>
+
+      <div className="editor-container">
+        <Editor 
+          height="100%"  // Adjust height to take full available space
+          language={language}
+          theme={theme === 'light' ? 'light' : 'vs-dark'}  // Monaco Editor's themes: 'light' or 'vs-dark'
+          value={code}
+          onChange={handleEditorChange}
+        />
+      </div>
+
+      <div className="output-input-container">
+        <div className="output-box">
+          <pre>{output}</pre>
+        </div>
+        <div className="input-box">
+          <textarea
+            placeholder="Enter custom input here..."
+            value={customInput}
+            onChange={(e) => setCustomInput(e.target.value)}
+          />
+        </div>
       </div>
     </div>
   );
