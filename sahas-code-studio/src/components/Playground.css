@@ -26,9 +26,8 @@
 }
 
 .arena-container.light .toolbar button {
-    background-color: #ffffff;
-    color: #000000;
-    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    border: #f1f1f1;
 }
 
 .arena-container.light .toolbar button:hover {

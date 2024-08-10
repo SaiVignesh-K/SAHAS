@@ -7,7 +7,7 @@ import { ResizableBox } from 'react-resizable';
 const Playground = () => {
   const [code_to_run, setCode] = useState('// Start coding...');
   const [theme, setTheme] = useState('light'); // Options: 'light' or 'dark'
-  const [lng, setLanguage] = useState('javascript'); // Default language
+  const [lng, setLanguage] = useState('cpp'); // Default language
   const [output, setOutput] = useState(''); // For displaying the output
   const [customInput, setCustomInput] = useState(''); // For custom input
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,6 @@ const Playground = () => {
     <div className={`arena-container ${theme}`}>
       <div className="toolbar">
         <select onChange={(e) => setLanguage(e.target.value)} value={lng}>
-          <option value="javascript">JavaScript</option>
           <option value="c">C</option>
           <option value="cpp">C++</option>
           {/* Add more languages as needed */}

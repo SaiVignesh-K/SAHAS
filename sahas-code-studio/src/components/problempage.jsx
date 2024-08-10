@@ -7,7 +7,7 @@ import 'react-resizable/css/styles.css';
 const Problempage = () => {
   const [code_to_run, setCode] = useState('// Start coding...');
   const [theme, setTheme] = useState('light');
-  const [lng, setLanguage] = useState('javascript');
+  const [lng, setLanguage] = useState('cpp');
   const [output, setOutput] = useState('');
   const [customInput, setCustomInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,6 @@ const Problempage = () => {
     <div className={`problem-page-container ${theme}`}>
       <div className="toolbar">
         <select onChange={(e) => setLanguage(e.target.value)} value={lng}>
-          <option value="javascript">JavaScript</option>
           <option value="c">C</option>
           <option value="cpp">C++</option>
         </select>

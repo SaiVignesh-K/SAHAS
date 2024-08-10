@@ -36,6 +36,14 @@
   border: 1px solid #555555;
 }
 
+.problem-page-container.light .toolbar button {
+  background-color: #f1f1f1;
+  border: #f1f1f1;
+}
+.problem-page-container.light .toolbar button:hover {
+  background-color: #e0e0e0;
+}
+
 .problem-page-container.dark .toolbar select {
   background-color: #4e4e4e;
   color: #ffffff;
