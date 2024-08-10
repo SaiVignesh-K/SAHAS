@@ -61,9 +61,10 @@ const Problempage = () => {
           <option value="c">C</option>
           <option value="cpp">C++</option>
         </select>
-        <p>SAHAS_CODE_PLAYGROUND</p>
+        <p>SAHAS_CODE_ARENA</p>
         <div>
           <button onClick={runTestCase}>Run Code</button>
+          <button onClick={runTestCase}>Submit</button>
           <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
             Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
           </button>
@@ -112,14 +113,13 @@ const Problempage = () => {
         resizeHandles={['n']}
       >
         <div className="output-box">
-            <p>Output</p>
           {loading ? (
             <div className="progress-bar">
               <p>Loading.....</p>
               <div className="progress"></div>
             </div>
           ) : (
-            <pre>{output}</pre>
+            <pre>{output || "Your output goes here..."}</pre>
           )}
         </div>
         <div className="input-boxes">

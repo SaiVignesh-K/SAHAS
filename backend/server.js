@@ -188,4 +188,56 @@ const executeInContainer = (container, command) => {
   });
 };
 
+const dotenv = require('dotenv')
+const mongoose = require('mongoose')
+const ProblemModel = require('./models/Problems');
+dotenv.config({path:'./config.env'});
+const db= process.env.DATABASE;
+mongoose.connect(db).then(()=>{
+    console.log("Connection Succesful");
+}).catch((e)=>{
+    console.log(e);
+})
+
+app.post('/upload', async (req, res) => {
+  try {
+    // Find the highest ProblemID
+    const highestProblem = await ProblemModel.findOne({}, { ProblemID: 1 }).sort({ ProblemID: -1 });
+
+    // Increment ProblemID
+    const newProblemID = highestProblem ? highestProblem.ProblemID + 1 : 1;
+
+    // Create a new problem with the incremented ProblemID
+    const problem = new ProblemModel({ ...req.body, ProblemID: newProblemID });
+    const savedProblem = await problem.save();
+
+    res.status(201).json(savedProblem);
+} catch (error) {
+    res.status(400).json({ error: error.message });
+}
+});
+
+// Get a problem by ProblemID
+app.get('/problem/:ProblemID', async (req, res) => {
+  try {
+      const problem = await ProblemModel.findOne({ ProblemID: req.params.ProblemID }).select('-ProblemHiddenTestCasesInput -ProblemHiddenTestCasesOutput');
+      if (!problem) return res.status(404).json({ message: "Problem not found" });
+      res.status(200).json(problem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/problems', async (req, res) => {
+  try {
+      const problems = await ProblemModel.find().select('ProblemID ProblemName ProblemDifficulty');
+      res.status(200).json(problems);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+
 app.listen(3333, () => console.log('Server running on port 3333'));
+
+

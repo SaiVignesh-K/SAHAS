@@ -108,7 +108,7 @@ const Playground = () => {
               <div className="progress"></div>
             </div>
           ) : (
-            <pre>{output}</pre>
+            <pre>{output || "Your output goes here..."}</pre>
           )}
         </div>
         <div className="input-box">
