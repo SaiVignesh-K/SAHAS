@@ -3,37 +3,51 @@ import { Editor } from '@monaco-editor/react';
 import './Arena.css';
 
 const Arena = () => {
-  const [code, setCode] = useState('// Start coding...');
+  const [code_to_run, setCode] = useState('// Start coding...');
   const [theme, setTheme] = useState('light'); // Options: 'light' or 'dark'
   const [language, setLanguage] = useState('javascript'); // Default language
   const [output, setOutput] = useState(''); // For displaying the output
   const [customInput, setCustomInput] = useState(''); // For custom input
-  const [error, setError] = useState(null); // For capturing errors
+
   const handleEditorChange = (value) => {
     setCode(value);
   };
 
-  const runTestCase = () => {
+  const runTestCase = async () => {
     try {
-      setError(null); // Clear any previous errors
+      // Prepare request data
+      const requestData = {
+        code: code_to_run,
+        inputs: customInput.trim().split('\n') // Split custom input by newline for multiple inputs
+      };
+      console.log(requestData);
+      const tp = JSON.stringify(requestData);
+      console.log(tp);
 
-      // Simulate running the code (this could be replaced with real execution)
-      let simulatedOutput = `Output:\n${code}`;
+      // Send API request
+      const response = await fetch('http://localhost:3333/run-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
 
-      // If executing JavaScript, run it inside a try-catch to handle errors
-      if (language === 'javascript') {
-        try {
-          /* eslint no-eval: 0 */
-          const result = eval(code); // WARNING: eval is dangerous and should only be used for demonstration
-          simulatedOutput = `Output:\n${result}`;
-        } catch (err) {
-          simulatedOutput = `Error: ${err.message}`;
-        }
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
 
-      setOutput(simulatedOutput);
+      const data = await response.json();
+
+      // Format the output
+      const formattedOutput = `Output:\n${data.output}\nRuntime: ${data.runtime}s\nMemory Usage: ${data.memoryUsage} bytes`;
+
+      // Update the state with the response data
+      setOutput(formattedOutput);
+
     } catch (err) {
-      setError(`Error running code: ${err.message}`);
+      setOutput(`Error running code: ${err.message}`);
     }
   };
 
@@ -42,28 +56,25 @@ const Arena = () => {
       <div className="toolbar">
         <select onChange={(e) => setLanguage(e.target.value)} value={language}>
           <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="csharp">C#</option>
-          <option value="java">Java</option>
+          <option value="c">C</option>
+          <option value="cpp">C++</option>
           {/* Add more languages as needed */}
         </select>
         <p>SAHAS_CODE_PLAYGROUND</p>
         <div>
-        <button onClick={runTestCase}>Run Code</button>
-        <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
+          <button onClick={runTestCase}>Run Code</button>
+          <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+            Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
+          </button>
         </div>
       </div>
-
-      {error && <div className="error-message">{error}</div>}
 
       <div className="editor-container">
         <Editor 
           height="100%"  // Adjust height to take full available space
           language={language}
           theme={theme === 'light' ? 'light' : 'vs-dark'}  // Monaco Editor's themes: 'light' or 'vs-dark'
-          value={code}
+          value={code_to_run}
           onChange={handleEditorChange}
         />
       </div>

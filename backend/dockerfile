@@ -1,0 +1,15 @@
+# Dockerfile
+FROM gcc:latest
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a directory for the code
+RUN mkdir /code
+
+WORKDIR /code
+
+# Keep container running
+CMD ["sleep", "infinity"]
