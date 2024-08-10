@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Playground from './components/Playground';
 import Arena from './components/Arena';
 import Battleground from './components/Battleground';
+import Problempage from './components/problempage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/Playground" element={<Playground/>}/>
         <Route path="/Arena" element={<Arena/>}/>
         <Route path="/Battleground" element={<Battleground/>}/>
+        <Route path="/problempage" element={<Problempage/>}/>
       </Routes>
     </BrowserRouter>
     </>

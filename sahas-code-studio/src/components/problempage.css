@@ -1,0 +1,143 @@
+/* Default Light Theme */
+.problem-page-container.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.problem-page-container.light .problem-statement,
+.problem-page-container.light .output-box,
+.problem-page-container.light .input-boxes,
+.problem-page-container.light .toolbar,
+.problem-page-container.light .editor-container {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #ccc; /* Light border color */
+    border-style: solid;
+}
+
+/* Dark Theme */
+.problem-page-container.dark {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+.problem-page-container.dark .problem-statement,
+.problem-page-container.dark .output-box,
+.problem-page-container.dark .input-boxes {
+    background-color: #3e3e3e;
+    color: #ffffff;
+    border-color: #000000; 
+    border-style: solid;
+}
+
+/* General Styles */
+.problem-page-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid;
+    border-radius: 4px;
+  }
+  
+  .content-container {
+    display: flex;
+    flex-grow: 1;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  .problem-statement {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .problem-statement-content {
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f0f0f0;
+  }
+  
+  .editor-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .output-input-horizontal-container {
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+  }
+  
+  .output-box {
+    flex: 0 0 44%;
+    padding: 10px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    border-right: 1px solid;
+    border-radius: 4px;
+  }
+  
+  .input-boxes {
+    flex: 0 0 56%;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid;
+    border-radius: 4px;
+  }
+  
+  .input-box {
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid;
+    background-color: inherit;
+    color: inherit;
+    resize: none;
+    border: none;
+  }
+  
+  .input-box:last-child {
+    border-bottom: none;
+  }
+  
+  /* Ensure the resize handles are visible and the cursor changes */
+  .resizable-box .react-resizable-handle {
+    position: absolute;
+    background: transparent;
+  }
+  
+  .resizable-box .react-resizable-handle-e,
+  .resizable-box .react-resizable-handle-w {
+    width: 10px;
+    cursor: ew-resize;
+    height: 100%;
+  }
+  
+  .resizable-box .react-resizable-handle-s {
+    height: 10px;
+    cursor: ns-resize;
+    width: 100%;
+  }
+  

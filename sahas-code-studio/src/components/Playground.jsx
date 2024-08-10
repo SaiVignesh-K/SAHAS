@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Editor } from '@monaco-editor/react';
 import './Playground.css';
+import 'react-resizable/css/styles.css';
+import { ResizableBox } from 'react-resizable';
 
 const Playground = () => {
   const [code_to_run, setCode] = useState('// Start coding...');
@@ -90,7 +92,15 @@ const Playground = () => {
         />
       </div>
 
-      <div className="output-input-container">
+      <ResizableBox
+        className="output-input-container"
+        width={Infinity}
+        height={100}
+        minConstraints={[Infinity, 150]}
+        maxConstraints={[Infinity, 500]}
+        axis="y"
+        resizeHandles={['n']}
+      >
         <div className="output-box">
         {loading ? (
             <div className="progress-bar">
@@ -108,7 +118,7 @@ const Playground = () => {
             onChange={(e) => setCustomInput(e.target.value)}
           />
         </div>
-      </div>
+      </ResizableBox>
     </div>
   );
 };
