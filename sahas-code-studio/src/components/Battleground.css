@@ -1,0 +1,24 @@
+.battle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  position: relative;
+}
+
+/* Styling for the button */
+.battle-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff; /* Button color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.battle-button:hover {
+  background-color: #0056b3; /* Darker color on hover */
+}

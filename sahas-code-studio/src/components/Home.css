@@ -1,0 +1,102 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+    position: relative;
+}
+
+.intro-banner {
+    background-color: #007acc;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    width: 90%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.intro-banner h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.intro-banner p {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.sections-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.section-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.section-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.section-card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #007acc;
+}
+
+.section-card p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.explore-button {
+    background-color: #007acc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.explore-button:hover {
+    background-color: #005a99;
+}
+
+.explore-button a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    bottom: 0;
+}
+
+.footer p {
+    margin: 5px 0;
+}

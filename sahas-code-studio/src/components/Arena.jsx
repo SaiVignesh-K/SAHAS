@@ -4,7 +4,7 @@ import './Arena.css';
 
 const Arena = () => {
   const [theme, setTheme] = useState('light');
-  const [sortBy, setSortBy] = useState('id');
+  const [sortBy, setSortBy] = useState('ProblemID');
   const [sortOrder, setSortOrder] = useState('asc');
   const [problems, setProblems] = useState([]);
 
