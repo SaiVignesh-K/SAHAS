@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Editor } from '@monaco-editor/react';
 import { ResizableBox } from 'react-resizable';
+import { useParams } from 'react-router-dom';
 import './problempage.css';
 import 'react-resizable/css/styles.css';
 
 const Problempage = () => {
+  const { ProblemID } = useParams(); // Extract problemid from URL
+  const [problemValue, setProblemValue] = useState('');
   const [code_to_run, setCode] = useState('// Start coding...');
   const [theme, setTheme] = useState('light');
   const [lng, setLanguage] = useState('cpp');
   const [output, setOutput] = useState('');
+  const [problemdif, setproblemdif] = useState('');
+  const [testcase, setTestcase] = useState('');
   const [customInput, setCustomInput] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchProblem = async () => {
+      try {
+        const response = await fetch(`http://localhost:3333/problem/${ProblemID}`);
+        if (response.ok) {
+          const data = await response.json();
+          setProblemValue(`Problem Statement: ${data.ProblemStatement}`); // Set formatted problem statement
+          setproblemdif(`Difficulty: ${data.ProblemDifficulty}`);
+          setCustomInput(data.ProblemTestCasesInput); // Set custom input
+          setTestcase(` Sample Input: ${data.ProblemTestCasesInput}\n Sample Output: ${data.ProblemTestCasesOutput}`);
+          setCode('// Start coding...'); // Optionally set initial code
+        } else {
+          console.error('Failed to fetch problem details');
+        }
+      } catch (error) {
+        console.error('Error fetching problem details:', error);
+      }
+    };
+
+    fetchProblem();
+  }, [ProblemID]);
 
   const handleEditorChange = (value) => {
     setCode(value);
@@ -53,6 +80,43 @@ const Problempage = () => {
     }
   };
 
+  const SubmitCode = async () => {
+    setLoading(true);
+    try {
+      const requestData = {
+        code: code_to_run,
+        language: lng,
+        PID: ProblemID
+      };
+
+      const response = await fetch('http://localhost:3333/submit-code', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      });
+
+      const data = await response.json();
+
+      if (data.error) {
+        setOutput(`Error: ${data.error}`);
+        return;
+      }
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const formattedOutput = `${data.msg}`;
+      setOutput(formattedOutput);
+
+    } catch (err) {
+      setOutput(`Error running code: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className={`problem-page-container ${theme}`}>
       <div className="toolbar">
@@ -63,7 +127,7 @@ const Problempage = () => {
         <p>SAHAS_CODE_ARENA</p>
         <div>
           <button onClick={runTestCase}>Run Code</button>
-          <button onClick={runTestCase}>Submit</button>
+          <button onClick={SubmitCode}>Submit</button>
           <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
             Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
           </button>
@@ -80,7 +144,9 @@ const Problempage = () => {
           axis="x"
           resizeHandles={['e']}
         >
-            <h3>Problem Statement</h3>
+          <h4>Problem</h4>
+          <p>{problemValue}</p>
+          <p>{problemdif}</p>
         </ResizableBox>
 
         <ResizableBox
@@ -128,12 +194,7 @@ const Problempage = () => {
             value={customInput}
             onChange={(e) => setCustomInput(e.target.value)}
           />
-          <textarea
-            className="input-box"
-            placeholder="Test Cases"
-            value={customInput}
-            onChange={(e) => setCustomInput(e.target.value)}
-          />
+          <pre>{testcase || " Sample test case"}</pre>
         </div>
       </ResizableBox>
     </div>

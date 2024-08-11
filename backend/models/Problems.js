@@ -9,7 +9,7 @@ const ProblemSchema= new mongoose.Schema({
     ProblemTestCasesOutput:String,
     ProblemHiddenTestCasesInput:String,
     ProblemHiddenTestCasesOutput:String,
-    ProblemSuccessfullSubmissions:Number
+    ProblemSuccessfullSubmissions:String
 })
 
 const ProblemModel=mongoose.model("Problems", ProblemSchema)

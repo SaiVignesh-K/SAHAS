@@ -237,6 +237,36 @@ app.get('/problems', async (req, res) => {
   }
 });
 
+app.post('/submit-code', async (req, res) => {
+  const { code, language, PID } = req.body;
+  if (!code) return res.status(400).json({ error: 'Code is required' });
+  if (!language) return res.status(400).json({ error: 'Language is required' });
+  if (!PID) return res.status(400).json({ error: 'ProblemID is required' });
+
+  if (language !== 'c' && language !== 'cpp') {
+    return res.status(400).json({ error: 'Invalid language. Supported languages: c, cpp' });
+  }
+
+  const problem = await ProblemModel.findOne({ ProblemID: PID}).select('ProblemHiddenTestCasesInput ProblemHiddenTestCasesOutput');
+  if (!problem) return res.status(404).json({ error : "Problem not found" });
+  try {
+    const dockerContainer = await getOrCreateContainer();
+    const inputs = problem.ProblemHiddenTestCasesInput.trim().split('\n');
+    const result = await runCodeInContainer(dockerContainer, code, inputs, language);
+    if (result.error) {
+      return res.status(400).json({ error: result.error });
+    }
+    if (problem.ProblemHiddenTestCasesOutput === result.output) {
+      const msg = `CodeSubmission: Accepted!!!`;
+      return res.status(200).json({ msg });
+    }
+    const msg = `CodeSubmission: Wrong Answer`;
+    return res.status(200).json({ msg });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 app.listen(3333, () => console.log('Server running on port 3333'));
 

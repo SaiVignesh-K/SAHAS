@@ -44,6 +44,12 @@
   background-color: #e0e0e0;
 }
 
+.problem-statement pre {
+  white-space: pre-wrap; /* Ensures text wraps properly */
+  line-height: 1.6; /* Adjust line height for better readability */
+  margin: 0; /* Remove default margin */
+}
+
 .problem-page-container.dark .toolbar select {
   background-color: #4e4e4e;
   color: #ffffff;
