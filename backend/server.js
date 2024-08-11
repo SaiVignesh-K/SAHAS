@@ -83,7 +83,7 @@ const runCodeInContainer = async (container, code, inputs, language) => {
   const compileCommand = language === 'cpp'
   ? 'g++ -o /code/main /code/main.cpp'
   : 'gcc -o /code/main /code/main.c';
-  const runCommand = 'timeout 20 /code/main < /code/input.txt > /code/output.txt'; // 10-second timeout
+  const runCommand = 'timeout 100 /code/main < /code/input.txt > /code/output.txt'; // 10-second timeout
 
   let startTime = Date.now();
 
@@ -97,7 +97,7 @@ const runCodeInContainer = async (container, code, inputs, language) => {
     
     let endTime = Date.now();
     let runtime = (endTime - startTime) / 1000; // runtime in seconds
-    if(runtime > 20) {
+    if(runtime > 100) {
       throw new Error('Timelimit Exceeded');
     }
 
